@@ -41,7 +41,7 @@ app.post('/users', (request, response) => {
 
   users.push(user);
 
-  return response.status(201).json(users);
+  return response.status(201).json(user);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
@@ -68,7 +68,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { title, deadline } = request.body;
-  const { id } = request.query;
+  const { id } = request.params;
   const { user } = request;
 
   const todo  = user.todos.find(todo => todo.id === id);
@@ -84,7 +84,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  const { id } = request.query;
+  const { id } = request.params;
   const { user } = request;
 
   const todo  = user.todos.find(todo => todo.id === id);
@@ -99,7 +99,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  const { id } = request.query;
+  const { id } = request.params;
   const { user } = request;
 
   const todoIndex = user.todos.findIndex(todo => todo.id === id);
